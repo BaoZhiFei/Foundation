@@ -152,6 +152,24 @@ typedef NS_ENUM(NSUInteger, NSURLRequestNetworkServiceType)
 };
 
 /*!
+ @enum NSURLRequestAttribution
+
+ @discussion The NSURLRequestAttribution enum is used to indicate whether the
+ user or developer specified the URL.
+
+ @constant NSURLRequestAttributionDeveloper Indicates that the URL was specified
+ by the developer. This is the default value for an NSURLRequest when created.
+
+ @constant NSURLRequestAttributionUser Indicates that the URL was specified by
+ the user.
+*/
+typedef NS_ENUM(NSUInteger, NSURLRequestAttribution)
+{
+    NSURLRequestAttributionDeveloper = 0,
+    NSURLRequestAttributionUser = 1,
+} API_AVAILABLE(macos(12.0), ios(15.0), watchos(8.0), tvos(15.0));
+
+/*!
     @class NSURLRequest
     
     @abstract An NSURLRequest object represents a URL load request in a
@@ -277,11 +295,9 @@ API_AVAILABLE(macos(10.2), ios(2.0), watchos(2.0), tvos(9.0))
 /*!
     @abstract The main document URL associated with this load.
     @discussion This URL is used for the cookie "same domain as main
-    document" policy. There may also be other future uses.
+    document" policy, and attributing the request as a sub-resource
+    of a user-specified URL. There may also be other future uses.
     See setMainDocumentURL:
-    NOTE: In the current implementation, this value is unused by the
-    framework. A fully functional version of this method will be available 
-    in the future. 
     @result The main document URL.
 */
 @property (nullable, readonly, copy) NSURL *mainDocumentURL;
@@ -317,6 +333,22 @@ API_AVAILABLE(macos(10.2), ios(2.0), watchos(2.0), tvos(9.0))
  satify the request, NO otherwise.
  */
 @property (readonly) BOOL allowsConstrainedNetworkAccess API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
+
+/*!
+ @abstract returns whether we assume that server supports HTTP/3. Enables QUIC
+ racing without HTTP/3 service discovery.
+ @result YES if server endpoint is known to support HTTP/3. Defaults to NO.
+ The default may be YES in a future OS update.
+ */
+@property (readonly) BOOL assumesHTTP3Capable API_AVAILABLE(macos(11.3), ios(14.5), watchos(7.4), tvos(14.5));
+
+/*!
+ @abstract Returns the NSURLRequestAttribution associated with this request.
+ @discussion This will return NSURLRequestAttributionDeveloper for requests that
+ have not explicitly set an attribution.
+ @result The NSURLRequestAttribution associated with this request.
+ */
+@property (readonly) NSURLRequestAttribution attribution API_AVAILABLE(macos(12.0), ios(15.0), watchos(8.0), tvos(15.0));
 
 @end
 
@@ -384,12 +416,10 @@ API_AVAILABLE(macos(10.2), ios(2.0), watchos(2.0), tvos(9.0))
     @discussion The caller should pass the URL for an appropriate main
     document, if known. For example, when loading a web page, the URL
     of the main html document for the top-level frame should be
-    passed.  This main document will be used to implement the cookie
-    "only from same domain as main document" policy, and possibly
-    other things in the future.
-    NOTE: In the current implementation, the passed-in value is unused by the
-    framework. A fully functional version of this method will be available 
-    in the future. 
+    passed.  This main document is used to implement the cookie "only
+    from same domain as main document" policy, attributing this request
+    as a sub-resource of a user-specified URL, and possibly other things
+    in the future.
 */
 @property (nullable, copy) NSURL *mainDocumentURL;
 
@@ -423,6 +453,21 @@ API_AVAILABLE(macos(10.2), ios(2.0), watchos(2.0), tvos(9.0))
  satify the request, YES otherwise.
  */
 @property BOOL allowsConstrainedNetworkAccess API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
+
+/*!
+ @abstract returns whether we assume that server supports HTTP/3. Enables QUIC
+ racing without HTTP/3 service discovery.
+ @result YES if server endpoint is known to support HTTP/3. Defaults to NO.
+ The default may be YES in a future OS update.
+ */
+@property BOOL assumesHTTP3Capable API_AVAILABLE(macos(11.3), ios(14.5), watchos(7.4), tvos(14.5));
+
+/*!
+ @abstract Sets the NSURLRequestAttribution to associate with this request.
+ @discussion Set to NSURLRequestAttributionUser if the URL was specified by the
+ user. Defaults to NSURLRequestAttributionDeveloper.
+ */
+@property NSURLRequestAttribution attribution API_AVAILABLE(macos(12.0), ios(15.0), watchos(8.0), tvos(15.0));
 
 @end
 
