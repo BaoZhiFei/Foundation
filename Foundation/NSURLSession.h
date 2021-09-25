@@ -497,7 +497,7 @@ API_AVAILABLE(macos(10.11), ios(9.0), watchos(2.0), tvos(9.0))
  * If an error occurs, any outstanding reads will also fail, and new
  * read requests will error out immediately.
  */
-- (void)readDataOfMinLength:(NSUInteger)minBytes maxLength:(NSUInteger)maxBytes timeout:(NSTimeInterval)timeout completionHandler:(void (^) (NSData * _Nullable_result data, BOOL atEOF, NSError * _Nullable error))completionHandler;
+- (void)readDataOfMinLength:(NSUInteger)minBytes maxLength:(NSUInteger)maxBytes timeout:(NSTimeInterval)timeout completionHandler:(void (^) (NSData * /*_Nullable_result*/ data, BOOL atEOF, NSError * _Nullable error))completionHandler;
 
 /* Write the data completely to the underlying socket.  If all the
  * bytes have not been written by the timeout, a timeout error will

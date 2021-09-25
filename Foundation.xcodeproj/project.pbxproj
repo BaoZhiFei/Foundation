@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		045CE87F26FE9AEB00A1C464 /* NSLock.m in Sources */ = {isa = PBXBuildFile; fileRef = 045CE87E26FE9AEB00A1C464 /* NSLock.m */; };
+		046EAF0A26FEAFA500867316 /* NSInflectionRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 046EAF0826FEAFA500867316 /* NSInflectionRule.h */; };
+		046EAF0B26FEAFA500867316 /* NSMorphology.h in Headers */ = {isa = PBXBuildFile; fileRef = 046EAF0926FEAFA500867316 /* NSMorphology.h */; };
+		046EAF0F26FEB1B700867316 /* NSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 046EAF0E26FEB1B700867316 /* NSObject.m */; };
 		04A558C426FE8B330091778A /* Foundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A558C226FE8B330091778A /* Foundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A558CE26FE8C9A0091778A /* _NSThreadPerformInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A558CC26FE8C9A0091778A /* _NSThreadPerformInfo.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		04A558CF26FE8C9A0091778A /* _NSThreadPerformInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A558CD26FE8C9A0091778A /* _NSThreadPerformInfo.m */; };
@@ -142,6 +145,9 @@
 
 /* Begin PBXFileReference section */
 		045CE87E26FE9AEB00A1C464 /* NSLock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSLock.m; sourceTree = "<group>"; };
+		046EAF0826FEAFA500867316 /* NSInflectionRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSInflectionRule.h; sourceTree = "<group>"; };
+		046EAF0926FEAFA500867316 /* NSMorphology.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMorphology.h; sourceTree = "<group>"; };
+		046EAF0E26FEB1B700867316 /* NSObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSObject.m; sourceTree = "<group>"; };
 		04A558BF26FE8B330091778A /* Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04A558C226FE8B330091778A /* Foundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Foundation.h; sourceTree = "<group>"; };
 		04A558C326FE8B330091778A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -359,6 +365,7 @@
 				04A5596226FE910E0091778A /* NSHTTPCookieStorage.h */,
 				04A558EC26FE910C0091778A /* NSIndexPath.h */,
 				04A5592A26FE910D0091778A /* NSIndexSet.h */,
+				046EAF0826FEAFA500867316 /* NSInflectionRule.h */,
 				04A5591626FE910D0091778A /* NSInvocation.h */,
 				04A5592326FE910D0091778A /* NSISO8601DateFormatter.h */,
 				04A558FB26FE910C0091778A /* NSItemProvider.h */,
@@ -380,6 +387,7 @@
 				04A5596026FE910E0091778A /* NSMetadata.h */,
 				04A5595F26FE910E0091778A /* NSMetadataAttributes.h */,
 				04A5596126FE910E0091778A /* NSMethodSignature.h */,
+				046EAF0926FEAFA500867316 /* NSMorphology.h */,
 				04A558EE26FE910C0091778A /* NSNetServices.h */,
 				04A5591D26FE910D0091778A /* NSNotification.h */,
 				04A5592426FE910D0091778A /* NSNotificationQueue.h */,
@@ -387,6 +395,7 @@
 				04A5590926FE910D0091778A /* NSNumberFormatter.h */,
 				04A558D126FE8D370091778A /* NSObjcRuntime.h */,
 				04A5593B26FE910E0091778A /* NSObject.h */,
+				046EAF0E26FEB1B700867316 /* NSObject.m */,
 				04A5595226FE910E0091778A /* NSOperation.h */,
 				04A5591326FE910D0091778A /* NSOrderedCollectionChange.h */,
 				04A5593726FE910D0091778A /* NSOrderedCollectionDifference.h */,
@@ -542,6 +551,7 @@
 				04A5598626FE910E0091778A /* NSKeyValueCoding.h in Headers */,
 				04A5597D26FE910E0091778A /* NSMeasurement.h in Headers */,
 				04A559A226FE910E0091778A /* NSExtensionItem.h in Headers */,
+				046EAF0B26FEAFA500867316 /* NSMorphology.h in Headers */,
 				04A559CF26FE910E0091778A /* NSTimer.h in Headers */,
 				04A5599226FE910E0091778A /* NSLinguisticTagger.h in Headers */,
 				04A559B026FE910E0091778A /* NSPointerFunctions.h in Headers */,
@@ -558,6 +568,7 @@
 				04A5599026FE910E0091778A /* NSOrderedSet.h in Headers */,
 				04A558DE26FE8F1C0091778A /* NSArray.h in Headers */,
 				04A5598026FE910E0091778A /* NSNumberFormatter.h in Headers */,
+				046EAF0A26FEAFA500867316 /* NSInflectionRule.h in Headers */,
 				04A559AE26FE910E0091778A /* NSOrderedCollectionDifference.h in Headers */,
 				04A5599826FE910E0091778A /* NSDateComponentsFormatter.h in Headers */,
 				04A559B326FE910E0091778A /* NSStream.h in Headers */,
@@ -658,6 +669,7 @@
 				04A558EA26FE8FB60091778A /* NSBlock.m in Sources */,
 				045CE87F26FE9AEB00A1C464 /* NSLock.m in Sources */,
 				04A558DF26FE8F1C0091778A /* NSArray.m in Sources */,
+				046EAF0F26FEB1B700867316 /* NSObject.m in Sources */,
 				04A558E526FE8F290091778A /* NSString.m in Sources */,
 				04A558CF26FE8C9A0091778A /* _NSThreadPerformInfo.m in Sources */,
 			);
