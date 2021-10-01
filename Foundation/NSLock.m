@@ -13,8 +13,16 @@ pthread_mutexattr_t __NSLockNMAttr;
 }
 
 - (instancetype)init {
-    pthread_mutex_init(object_getIndexedIvars(self), &__NSLockNMAttr);
-    return nil;
+    id this = self;
+    void *ivars = object_getIndexedIvars(self);
+    if (pthread_mutex_init(ivars, &__NSLockNMAttr) != 0) {
+        [super dealloc];
+        this = nil;
+    } else {
+        // 0x48 is lock name
+        *((int64_t *)(ivars + 0x48)) = 0;
+    }
+    return this;
 }
 
 - (void)dealloc {
@@ -22,7 +30,7 @@ pthread_mutexattr_t __NSLockNMAttr;
 }
 
 - (void)lock {
-    
+    pthread_mutex_lock((pthread_mutex_t *)object_getIndexedIvars(self));
 }
 
 - (BOOL)lockBeforeDate:(NSDate *)limit {
@@ -30,7 +38,7 @@ pthread_mutexattr_t __NSLockNMAttr;
 }
 
 - (BOOL)tryLock {
-    return NO;
+    return !pthread_mutex_trylock((pthread_mutex_t *)object_getIndexedIvars(self));
 }
 
 - (void)unlock {
