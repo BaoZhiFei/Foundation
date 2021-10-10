@@ -1,4 +1,5 @@
-#include <pthread/pthread.h>
+#include <pthread.h>
+#include <stdlib.h>
 
 #import "NSLock.h"
 #import "NSString.h"
@@ -38,6 +39,15 @@ typedef struct {
 }
 
 - (void)dealloc {
+    NSLockIndexedIvarsPrivate *ivars = (NSLockIndexedIvarsPrivate *)object_getIndexedIvars(self);
+    pthread_mutex_destroy(&ivars->mutex);
+    NSLockIndexedIvarsTimeout *timeout = ivars->timeout;
+    if (timeout) {
+        pthread_cond_destroy(&timeout->cond);
+        pthread_mutex_destroy(&timeout->mutex);
+        free(timeout);
+    }
+    [ivars->name release];
     [super dealloc];
 }
 
