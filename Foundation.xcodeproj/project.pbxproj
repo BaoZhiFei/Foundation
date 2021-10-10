@@ -14,7 +14,7 @@
 		04A558C426FE8B330091778A /* Foundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A558C226FE8B330091778A /* Foundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A558CE26FE8C9A0091778A /* _NSThreadPerformInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A558CC26FE8C9A0091778A /* _NSThreadPerformInfo.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		04A558CF26FE8C9A0091778A /* _NSThreadPerformInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A558CD26FE8C9A0091778A /* _NSThreadPerformInfo.m */; };
-		04A558D226FE8D370091778A /* NSObjcRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A558D126FE8D370091778A /* NSObjcRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04A558D226FE8D370091778A /* NSObjCRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A558D126FE8D370091778A /* NSObjCRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A558D626FE8D630091778A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A558D526FE8D630091778A /* CoreFoundation.framework */; };
 		04A558DE26FE8F1C0091778A /* NSArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A558DC26FE8F1C0091778A /* NSArray.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A558DF26FE8F1C0091778A /* NSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A558DD26FE8F1C0091778A /* NSArray.m */; };
@@ -153,7 +153,7 @@
 		04A558C326FE8B330091778A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04A558CC26FE8C9A0091778A /* _NSThreadPerformInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _NSThreadPerformInfo.h; sourceTree = "<group>"; };
 		04A558CD26FE8C9A0091778A /* _NSThreadPerformInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _NSThreadPerformInfo.m; sourceTree = "<group>"; };
-		04A558D126FE8D370091778A /* NSObjcRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjcRuntime.h; sourceTree = "<group>"; };
+		04A558D126FE8D370091778A /* NSObjCRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjCRuntime.h; sourceTree = "<group>"; };
 		04A558D526FE8D630091778A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		04A558D926FE8EEB0091778A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		04A558DC26FE8F1C0091778A /* NSArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSArray.h; sourceTree = "<group>"; };
@@ -393,7 +393,7 @@
 				04A5592426FE910D0091778A /* NSNotificationQueue.h */,
 				04A5593326FE910D0091778A /* NSNull.h */,
 				04A5590926FE910D0091778A /* NSNumberFormatter.h */,
-				04A558D126FE8D370091778A /* NSObjcRuntime.h */,
+				04A558D126FE8D370091778A /* NSObjCRuntime.h */,
 				04A5593B26FE910E0091778A /* NSObject.h */,
 				046EAF0E26FEB1B700867316 /* NSObject.m */,
 				04A5595226FE910E0091778A /* NSOperation.h */,
@@ -516,7 +516,7 @@
 				04A559C926FE910E0091778A /* NSOperation.h in Headers */,
 				04A559D526FE910E0091778A /* NSUserActivity.h in Headers */,
 				04A559B726FE910E0091778A /* NSPersonNameComponentsFormatter.h in Headers */,
-				04A558D226FE8D370091778A /* NSObjcRuntime.h in Headers */,
+				04A558D226FE8D370091778A /* NSObjCRuntime.h in Headers */,
 				04A5597126FE910E0091778A /* NSError.h in Headers */,
 				04A559CB26FE910E0091778A /* NSEnumerator.h in Headers */,
 				04A5598926FE910E0091778A /* NSUbiquitousKeyValueStore.h in Headers */,
