@@ -6,21 +6,28 @@
 
 pthread_mutexattr_t __NSLockNMAttr;
 
+// Timeout is from https://github.com/apple/swift-corelibs-foundation/blob/main/Sources/Foundation/NSLock.swift unlock method
 typedef struct {
     pthread_mutex_t mutex;
-    void *unknown;
+    pthread_cond_t cond;
+} NSLockIndexedIvarsTimeout;
+
+// Private is from NSLock.h
+typedef struct {
+    pthread_mutex_t mutex;
+    NSLockIndexedIvarsTimeout *timeout;
     NSString *name;
-} NSLockIndexedIvars;
+} NSLockIndexedIvarsPrivate;
 
 @implementation NSLock
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return NSAllocateObject(self, sizeof(NSLockIndexedIvars), zone);
+    return NSAllocateObject(self, sizeof(NSLockIndexedIvarsPrivate), zone);
 }
 
 - (instancetype)init {
     id this = self;
-    NSLockIndexedIvars *ivars = (NSLockIndexedIvars *)object_getIndexedIvars(self);
+    NSLockIndexedIvarsPrivate *ivars = (NSLockIndexedIvarsPrivate *)object_getIndexedIvars(self);
     if (pthread_mutex_init(&ivars->mutex, &__NSLockNMAttr) != 0) {
         [super dealloc];
         this = nil;
@@ -35,7 +42,7 @@ typedef struct {
 }
 
 - (void)lock {
-    NSLockIndexedIvars *ivars = (NSLockIndexedIvars *)object_getIndexedIvars(self);
+    NSLockIndexedIvarsPrivate *ivars = (NSLockIndexedIvarsPrivate *)object_getIndexedIvars(self);
     pthread_mutex_lock(&ivars->mutex);
 }
 
@@ -44,12 +51,19 @@ typedef struct {
 }
 
 - (BOOL)tryLock {
-    NSLockIndexedIvars *ivars = (NSLockIndexedIvars *)object_getIndexedIvars(self);
+    NSLockIndexedIvarsPrivate *ivars = (NSLockIndexedIvarsPrivate *)object_getIndexedIvars(self);
     return pthread_mutex_trylock(&ivars->mutex) != 0;
 }
 
 - (void)unlock {
-    
+    NSLockIndexedIvarsPrivate *ivars = (NSLockIndexedIvarsPrivate *)object_getIndexedIvars(self);
+    pthread_mutex_unlock(&ivars->mutex);
+    NSLockIndexedIvarsTimeout *timeout = ivars->timeout;
+    if (timeout) {
+        pthread_mutex_lock(&timeout->mutex);
+        pthread_cond_broadcast(&timeout->cond);
+        pthread_mutex_unlock(&timeout->mutex);
+    }
 }
 
 - (NSString *)description {
@@ -57,7 +71,7 @@ typedef struct {
 }
 
 - (void)setName:(NSString *)aName {
-    NSLockIndexedIvars *ivars = (NSLockIndexedIvars *)object_getIndexedIvars(self);
+    NSLockIndexedIvarsPrivate *ivars = (NSLockIndexedIvarsPrivate *)object_getIndexedIvars(self);
     NSString *name = ivars->name;
     if (name != aName) {
         [name release];
@@ -66,7 +80,7 @@ typedef struct {
 }
 
 - (NSString *)name {
-    NSLockIndexedIvars *ivars = (NSLockIndexedIvars *)object_getIndexedIvars(self);
+    NSLockIndexedIvarsPrivate *ivars = (NSLockIndexedIvarsPrivate *)object_getIndexedIvars(self);
     return ivars->name;
 }
 
