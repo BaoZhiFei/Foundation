@@ -6,21 +6,26 @@
 
 pthread_mutexattr_t __NSLockNMAttr;
 
+typedef struct {
+    pthread_mutex_t mutex;
+    void *unknown;
+    NSString *name;
+} NSLockIndexedIvars;
+
 @implementation NSLock
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return NSAllocateObject(self, 0x50, zone);
+    return NSAllocateObject(self, sizeof(NSLockIndexedIvars), zone);
 }
 
 - (instancetype)init {
     id this = self;
-    void *ivars = object_getIndexedIvars(self);
-    if (pthread_mutex_init(ivars, &__NSLockNMAttr) != 0) {
+    NSLockIndexedIvars *ivars = (NSLockIndexedIvars *)object_getIndexedIvars(self);
+    if (pthread_mutex_init(&ivars->mutex, &__NSLockNMAttr) != 0) {
         [super dealloc];
         this = nil;
     } else {
-        // 0x48 is lock name
-        *((int64_t *)(ivars + 0x48)) = 0;
+        ivars->name = nil;
     }
     return this;
 }
@@ -30,7 +35,8 @@ pthread_mutexattr_t __NSLockNMAttr;
 }
 
 - (void)lock {
-    pthread_mutex_lock((pthread_mutex_t *)object_getIndexedIvars(self));
+    NSLockIndexedIvars *ivars = (NSLockIndexedIvars *)object_getIndexedIvars(self);
+    pthread_mutex_lock(&ivars->mutex);
 }
 
 - (BOOL)lockBeforeDate:(NSDate *)limit {
@@ -38,7 +44,8 @@ pthread_mutexattr_t __NSLockNMAttr;
 }
 
 - (BOOL)tryLock {
-    return !pthread_mutex_trylock((pthread_mutex_t *)object_getIndexedIvars(self));
+    NSLockIndexedIvars *ivars = (NSLockIndexedIvars *)object_getIndexedIvars(self);
+    return pthread_mutex_trylock(&ivars->mutex) != 0;
 }
 
 - (void)unlock {
@@ -49,12 +56,18 @@ pthread_mutexattr_t __NSLockNMAttr;
     return nil;
 }
 
-- (void)setName:(NSString *)name {
-    
+- (void)setName:(NSString *)aName {
+    NSLockIndexedIvars *ivars = (NSLockIndexedIvars *)object_getIndexedIvars(self);
+    NSString *name = ivars->name;
+    if (name != aName) {
+        [name release];
+        ivars->name = [aName copy];
+    }
 }
 
 - (NSString *)name {
-    return nil;
+    NSLockIndexedIvars *ivars = (NSLockIndexedIvars *)object_getIndexedIvars(self);
+    return ivars->name;
 }
 
 @end
